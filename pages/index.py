@@ -12,10 +12,9 @@ server.secret_key = os.environ.get('secret_key', 'secret')
 
 app = dash.Dash(__name__, server=server, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
-@server.route('/favicon.ico')
+@ app.server.route('/favicon.ico')
 def favicon():
-    return flask.send_from_directory(os.path.join(server.root_path, 'static'),
-                                     'favicon.ico', mimetype='image/vnd.microsoft.icon')
+    return flask.send_from_directory(os.path.join(app.server.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 column1 = dbc.Col(
     [
