@@ -1,5 +1,4 @@
-import os
-import flask
+# Imports from 3rd party libraries
 import dash
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
@@ -7,15 +6,11 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 import plotly.express as px
 
-server = flask.Flask(__name__)
-server.secret_key = os.environ.get('secret_key', 'secret')
+# Imports from this application
+from app import app
 
-app = dash.Dash(__name__, server=server, external_stylesheets=[dbc.themes.BOOTSTRAP])
-
-@ app.server.route('/favicon.ico')
-def favicon():
-    return flask.send_from_directory(os.path.join(app.server.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
-
+# 2 column layout. 1st column width = 4/12
+# https://dash-bootstrap-components.opensource.faculty.ai/l/components/layout
 column1 = dbc.Col(
     [
         dcc.Markdown(
@@ -43,3 +38,9 @@ column2 = dbc.Col(
 )
 
 layout = dbc.Row([column1, column2])
+
+# Fix for favicon.ico error
+@ app.server.route('/favicon.ico')
+def favicon():
+    return flask.send_from_directory(os.path.join(app.server.root_path, 'static'),
+                                     'favicon.ico', mimetype='image/vnd.microsoft.icon')
