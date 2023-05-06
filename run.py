@@ -72,6 +72,8 @@ def display_page(pathname):
         return insights.layout
     elif pathname == '/process':
         return process.layout
+    elif pathname == '/favicon.ico':
+        return server.send_static_file('favicon.ico')
     else:
         return dcc.Markdown('## Page not found')
 
